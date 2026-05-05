@@ -11,7 +11,7 @@ public class Queue_2511533007 {
     public Queue_2511533007(int capacity_3007) {
         this.max_3007 = capacity_3007;
         front_3007 = this.size_3007 = 0;
-        rear_3007 = capacity_3007 - 1;
+        rear_3007 = capacity_3007 - 1; 
         queue_3007 = new String[this.max_3007];
     }
  
