@@ -5,4 +5,5 @@
  * 
  */
 module PrakSD2026_A_2511533007 {
+	requires java.desktop;
 }
