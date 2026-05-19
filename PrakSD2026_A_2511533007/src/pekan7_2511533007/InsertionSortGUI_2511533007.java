@@ -31,7 +31,7 @@ public class InsertionSortGUI_2511533007 extends JFrame {
 	private JPanel panelArray_3007;
 	private JTextArea stepArea_3007;
 	
-	private int i = 1, j;
+	private int i_3007 = 1, j_3007;
 	private boolean sorting_3007 = false;
 	private int stepCount_3007 = 1;
 	
@@ -87,59 +87,59 @@ public class InsertionSortGUI_2511533007 extends JFrame {
 	private void setArrayFromInput() {
 		String text_3007 = inputField_3007.getText().trim();
 		if (text_3007.isEmpty()) return;
-		String [] parts = text_3007.split(",");
-		array_3007 = new int[parts.length];
+		String [] parts_3007 = text_3007.split(",");
+		array_3007 = new int[parts_3007.length];
 		try {
-			for (int k = 0; k < parts.length; k++) {
-				array_3007[k] = Integer.parseInt(parts[k].trim());
+			for (int k_3007 = 0; k_3007 < parts_3007.length; k_3007++) {
+				array_3007[k_3007] = Integer.parseInt(parts_3007[k_3007].trim());
 			} 
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this, "Masukkan hanya angka yang dipisahkan " 
 					+ "dengan koma!", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		i = 1;
+		i_3007 = 1;
 		stepCount_3007 = 1;
 		sorting_3007 = true;
 		stepButton_3007.setEnabled(true);
 		stepArea_3007.setText("");
 		panelArray_3007.removeAll();
 		labelArray_3007 = new JLabel[array_3007.length];
-		for (int k = 0; k < array_3007.length; k++) {
-			labelArray_3007[k] = new JLabel(String.valueOf(array_3007[k]));
-			labelArray_3007[k].setFont(new Font("Arial", Font.BOLD,24));
-			labelArray_3007[k].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			labelArray_3007[k].setPreferredSize(new Dimension(50, 50));
-			labelArray_3007[k].setHorizontalAlignment(SwingConstants.CENTER);
-			panelArray_3007.add(labelArray_3007[k]);
+		for (int k_3007 = 0; k_3007 < array_3007.length; k_3007++) {
+			labelArray_3007[k_3007] = new JLabel(String.valueOf(array_3007[k_3007]));
+			labelArray_3007[k_3007].setFont(new Font("Arial", Font.BOLD,24));
+			labelArray_3007[k_3007].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			labelArray_3007[k_3007].setPreferredSize(new Dimension(50, 50));
+			labelArray_3007[k_3007].setHorizontalAlignment(SwingConstants.CENTER);
+			panelArray_3007.add(labelArray_3007[k_3007]);
 		}
 		panelArray_3007.revalidate();
 		panelArray_3007.repaint();
 	}
 	
 	private void performStep_3007() {
-	    if (i < array_3007.length && sorting_3007) {
-	        int key_3007 = array_3007[i];
-	        j = i - 1;
+	    if (i_3007 < array_3007.length && sorting_3007) {
+	        int key_3007 = array_3007[i_3007];
+	        j_3007 = i_3007 - 1;
 
 	        StringBuilder stepLog_3007 = new StringBuilder();
 	        stepLog_3007.append("Langkah ").append(stepCount_3007).
 	        append(": Memasukkan ").append(key_3007).append("\n");
 
-	        while (j >= 0 && array_3007[j] > key_3007) {
-	            array_3007[j + 1] = array_3007[j];
-	            j--;
+	        while (j_3007 >= 0 && array_3007[j_3007] > key_3007) {
+	            array_3007[j_3007 + 1] = array_3007[j_3007];
+	            j_3007--;
 	        }
-	        array_3007[j + 1] = key_3007;
+	        array_3007[j_3007 + 1] = key_3007;
 
 	        updateLabels_3007();
 	        stepLog_3007.append("Hasil: ").append(arrayToString_3007(array_3007)).append("\n\n");
 	        stepArea_3007.append(stepLog_3007.toString());
 
-	        i++;
+	        i_3007++;
 	        stepCount_3007++;
 
-	        if (i == array_3007.length) {
+	        if (i_3007 == array_3007.length) {
 	            sorting_3007 = false;
 	            stepButton_3007.setEnabled(false);
 	            JOptionPane.showMessageDialog(this, "Sorting selesai!");
@@ -148,8 +148,8 @@ public class InsertionSortGUI_2511533007 extends JFrame {
 	}
 	
 	private void updateLabels_3007() {
-	    for (int k = 0; k < array_3007.length; k++) {
-	        labelArray_3007[k].setText(String.valueOf(array_3007[k]));
+	    for (int k_3007 = 0; k_3007 < array_3007.length; k_3007++) {
+	        labelArray_3007[k_3007].setText(String.valueOf(array_3007[k_3007]));
 	    }
 	}
 	
@@ -161,7 +161,7 @@ public class InsertionSortGUI_2511533007 extends JFrame {
 	    stepArea_3007.setText("");
 	    stepButton_3007.setEnabled(false);
 	    sorting_3007 = false;
-	    i = 1;
+	    i_3007 = 1;
 	    stepCount_3007 = 1;
 	}
 	
