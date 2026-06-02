@@ -1,0 +1,203 @@
+package pekan8_2511533007;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.lang.reflect.Array;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+
+public class BubbleSortGUI_2511533007 extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private int[] array_3007;
+	private JLabel[] labelArray_3007;
+	private JButton stepButton_3007, resetButton_3007, setButton_3007;
+	private JTextField inputField_3007;
+	private JPanel panelArray_3007;
+	private JTextArea stepArea_3007;
+	
+	private int i_3007 = 1, j_3007;
+	private boolean sorting_3007 = false;
+	private int stepCount_3007 = 1;
+	
+	public BubbleSortGUI_2511533007() {
+		setTitle("Insertion Sort Langkah per Langkah");
+		setSize(750, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setLayout(new BorderLayout());
+		
+		// Panel input
+		JPanel inputPanel_3007 = new JPanel(new FlowLayout());
+		inputField_3007 = new JTextField(30);
+		setButton_3007 = new JButton("Set Array");
+		inputPanel_3007.add(new JLabel ("Masukkan angka (pisahkan dengan koma):"));
+		inputPanel_3007.add(inputField_3007);
+		inputPanel_3007.add(setButton_3007);
+		
+		// Panel array visual
+		panelArray_3007 = new JPanel();
+		panelArray_3007.setLayout(new FlowLayout());
+		
+		// Panel kontrol
+		JPanel controlPanel_3007 = new JPanel();
+		stepButton_3007 = new JButton("Langkah Selanjutnya");
+		resetButton_3007 = new JButton("Reset");
+		stepButton_3007.setEnabled(false);
+		controlPanel_3007.add(stepButton_3007);
+		controlPanel_3007.add(resetButton_3007);
+		
+		// Area teks untuk log langkah-langkah
+		stepArea_3007 = new JTextArea(8, 60);
+		stepArea_3007.setEditable(false);
+		stepArea_3007.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		JScrollPane scrollPane_3007 = new JScrollPane(stepArea_3007);
+		
+		// Tambahkan panel ke frame
+		add(inputPanel_3007, BorderLayout.NORTH);
+		add(panelArray_3007, BorderLayout.CENTER);
+		add(controlPanel_3007, BorderLayout.SOUTH);
+		add(scrollPane_3007, BorderLayout.EAST);
+		
+		// Event Set Array
+		setButton_3007.addActionListener(e -> setArrayFromInput());
+		
+		// Event Langkah Selanjutnya
+		stepButton_3007.addActionListener(e -> performStep_3007());
+		
+		// Event Reset
+		resetButton_3007.addActionListener(e -> reset_3007());
+	}
+		
+	private void setArrayFromInput() {
+		String text_3007 = inputField_3007.getText().trim();
+		if (text_3007.isEmpty()) return;
+		String [] parts_3007 = text_3007.split(",");
+		array_3007 = new int[parts_3007.length];
+		try {
+			for (int k_3007 = 0; k_3007 < parts_3007.length; k_3007++) {
+				array_3007[k_3007] = Integer.parseInt(parts_3007[k_3007].trim());
+			} 
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Masukkan hanya angka yang dipisahkan " 
+					+ "dengan koma!", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		i_3007 = 0;
+		j_3007 = 0;
+		stepCount_3007 = 1;
+		sorting_3007 = true;
+		stepButton_3007.setEnabled(true);
+		stepArea_3007.setText("");
+		panelArray_3007.removeAll();
+		labelArray_3007 = new JLabel[array_3007.length];
+		for (int k_3007 = 0; k_3007 < array_3007.length; k_3007++) {
+			labelArray_3007[k_3007] = new JLabel(String.valueOf(array_3007[k_3007]));
+			labelArray_3007[k_3007].setFont(new Font("Arial", Font.BOLD,24));
+			labelArray_3007[k_3007].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			labelArray_3007[k_3007].setPreferredSize(new Dimension(50, 50));
+			labelArray_3007[k_3007].setHorizontalAlignment(SwingConstants.CENTER);
+			panelArray_3007.add(labelArray_3007[k_3007]);
+		}
+		panelArray_3007.revalidate();
+		panelArray_3007.repaint();
+	}
+	
+	private void performStep_3007() {
+	    if (!sorting_3007 || i_3007 >= array_3007.length - 1) {
+	        sorting_3007 = false;
+	        stepButton_3007.setEnabled(false);
+	        JOptionPane.showMessageDialog(this, "Sorting selesai!");
+	        return;
+	    }
+	    resetHighlights_3007();
+	    StringBuilder stepLog = new StringBuilder();
+	    labelArray_3007[j_3007].setBackground(Color.CYAN);
+	    labelArray_3007[j_3007 + 1].setBackground(Color.CYAN);
+	    if (array_3007[j_3007] > array_3007[j_3007 + 1]) {
+	        // Swap
+	        int temp = array_3007[j_3007];
+	        array_3007[j_3007] = array_3007[j_3007 + 1];
+	        array_3007[j_3007 + 1] = temp;
+	        labelArray_3007[j_3007].setBackground(Color.RED);
+	        labelArray_3007[j_3007 + 1].setBackground(Color.RED);
+	        stepLog.append("Langkah ").append(stepCount_3007).append(": Menukar elemen ke-")
+	                .append(j_3007).append(" (").append(array_3007[j_3007 + 1]).append(") dengan ke-")
+	                .append(j_3007 + 1).append(" (").append(array_3007[j_3007]).append(")\n");
+	    } else {
+	        stepLog.append("Langkah ").append(stepCount_3007).append(": Tidak ada pertukaran antara ke-")
+	                .append(j_3007).append(" dan ke-").append(j_3007 + 1).append("\n");
+	    }
+	    stepLog.append("Hasil: ").append(arrayToString_3007(array_3007)).append("\n\n");
+	    stepArea_3007.append(stepLog.toString());
+	    updateLabels_3007();
+	    j_3007++;
+	    if (j_3007 >= array_3007.length - i_3007 - 1) {
+	        j_3007 = 0;
+	        i_3007++;
+	    }
+	    stepCount_3007++;
+	    if (i_3007 >= array_3007.length - 1) {
+	        sorting_3007 = false;
+	        stepButton_3007.setEnabled(false);
+	        JOptionPane.showMessageDialog(this, "Sorting selesai!");
+	    }
+	}
+	
+	private void updateLabels_3007() {
+	    for (int k_3007 = 0; k_3007 < array_3007.length; k_3007++) {
+	        labelArray_3007[k_3007].setText(String.valueOf(array_3007[k_3007]));
+	    }
+	}
+	
+	private void resetHighlights_3007() {
+		for (JLabel label_3007 : labelArray_3007) {
+			label_3007.setBackground(Color.WHITE);
+		}
+	}
+	
+	private void reset_3007() {
+	    inputField_3007.setText("");
+	    panelArray_3007.removeAll();
+	    panelArray_3007.revalidate();
+	    panelArray_3007.repaint();
+	    stepArea_3007.setText("");
+	    stepButton_3007.setEnabled(false);
+	    sorting_3007 = false;
+	    i_3007 = 0;
+	    j_3007 = 0;
+	    stepCount_3007 = 1;
+	}
+	
+	private String arrayToString_3007(int[] arr) {
+	    StringBuilder sb_3007 = new StringBuilder();
+	    for (int k_3007 = 0; k_3007 < arr.length; k_3007++) {
+	        sb_3007.append(arr[k_3007]);
+	        if (k_3007 < arr.length - 1) sb_3007.append(", ");
+	    }
+	    return sb_3007.toString();
+	}
+	
+	public static void main(String[] args) {
+	    SwingUtilities.invokeLater(() -> {
+	        BubbleSortGUI_2511533007 gui_3007 = new BubbleSortGUI_2511533007();
+	        gui_3007.setVisible(true);
+	    });
+	}
+}
